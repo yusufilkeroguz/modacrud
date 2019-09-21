@@ -1,16 +1,10 @@
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 
-
 module.exports = {
   mode: 'development',
-  entry: './assets/js/index.js',
+  entry: ['babel-polyfill', './assets/js/index.js'],
   watch: true,
-  plugins: [
-    new CopyPlugin([
-      { from: 'source', to: 'dest' },
-    ]),
-  ],
   module: {
     rules: [
       {
@@ -32,6 +26,10 @@ module.exports = {
             }
           },
         ],
+      },
+      {
+        test: /\.svg$/,
+        loader: 'svg-inline-loader'
       }
     ]
   },

@@ -2,26 +2,73 @@ import React, { useState, useEffect }  from 'react'
 import ReactDOM from 'react-dom'
 
 import axios from 'axios'
+import SweetAlert from 'sweetalert-react'
 
 import style from './../scss/index.scss'
+import 'sweetalert/dist/sweetalert.css'
 
 import edit from './../img/pencil.svg'
 import del from './../img/delete.svg'
 
-import Modal from './components/Modal'
+async function deleteOrder({ orderId }) {
+  const url = `http://localhost:3004/orders/${orderId}`
+  const method = 'DELETE'
 
-async function getOrders() {
-  const data = await fetch('http://localhost:3004')
-  return data.json()
+  return axios({
+    method,
+    url
+  })
 }
 
-function editOrder({ orderKey }) {
+function DeleteModal(props) {
+  const closeModal = () => props.setter(!props.visibility)
 
+  return (
+    <SweetAlert
+      show={props.visibility}
+      title="Emin misin?"
+      text="Sipariş silinecektir? Bunu yapmak istediğine emin misin?"
+      onConfirm={ () => { deleteOrder({ orderId: props.orderId }); closeModal() } }
+      onCancel={ () => closeModal() }
+      onEscapeKey={ () => closeModal() }
+    />
+  )
 }
 
-function HelloMessage(props) {
+function EditForm() {
+  return (
+    <form className={'form'}>
+      div.form-
+    </form>
+  )
+}
+
+function EditModal(props) {
+  const closeModal = () => props.setter(!props.visibility)
+
+  return (
+    <SweetAlert
+      show={props.visibility}
+      title="Emin misin?"
+      text="Sipariş silinecektir? Bunu yapmak istediğine emin misin?"
+      onConfirm={ () => { deleteOrder({ orderId: props.orderId }); closeModal() } }
+      onCancel={ () => closeModal() }
+      onEscapeKey={ () => closeModal() }
+    />
+  )
+}
+
+function onClickActionButtons({ event, itemId, orderIdHandler, modalCurrentVisibility, modalHandler }) {
+  event.preventDefault()
+  orderIdHandler(itemId)
+  modalHandler(!modalCurrentVisibility)
+}
+
+function Homepage() {
   const [orders, setOrders] = useState([]);
-  const [showModal, setModalVisibility] = useState(false);
+  const [showDeleteModal, setDeleteModalVisibility] = useState(false);
+  const [showEditModal, setEditModalVisibility] = useState(false);
+  const [ currentOrderId, setCurrentOrderId ] = useState(false)
 
   useEffect(() => {
     async function fetchData() {
@@ -45,19 +92,38 @@ function HelloMessage(props) {
               <div className="list__item__address">{item.address}</div>
 
               <div className="list__item__actions">
-                <a href={'#'} className="list__item__actions--edit" data-id={key} dangerouslySetInnerHTML={{ __html: edit }} onClick={(e) => { e.preventDefault(); setModalVisibility(!showModal) }} />
-                <a href={'#'} className="list__item__actions--delete" data-id={key} dangerouslySetInnerHTML={{ __html: del }} onClick={(e) => { e.preventDefault(); setModalVisibility(!showModal) }} />
+                <a href={'#'} className="list__item__actions--edit" data-id={key}
+                   dangerouslySetInnerHTML={{__html: edit}} onClick={(event) => {
+                  onClickActionButtons({
+                    event,
+                    itemId: item.id,
+                    orderIdHandler: setCurrentOrderId,
+                    modalCurrentVisibility: showEditModal,
+                    modalHandler: setEditModalVisibility
+                  })
+                }}/>
+                <a href={'#'} className="list__item__actions--delete" data-id={key}
+                   dangerouslySetInnerHTML={{__html: del}} onClick={(event) => {
+                  onClickActionButtons({
+                    event,
+                    itemId: item.id,
+                    orderIdHandler: setCurrentOrderId,
+                    modalCurrentVisibility: showDeleteModal,
+                    modalHandler: setDeleteModalVisibility
+                  })
+                }}/>
               </div>
             </div>
           ))}
         </div>
       </div>
-      <Modal title={'sa'} visibility={showModal} />
+
+      <DeleteModal setter={setDeleteModalVisibility} visibility={showDeleteModal} orderId={currentOrderId} />
     </React.Fragment>
   )
 }
 
 ReactDOM.render(
-<HelloMessage name="Ali" />,
+<Homepage />,
   document.getElementById('root')
 );

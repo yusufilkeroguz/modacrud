@@ -34,9 +34,6 @@ function HelloMessage(props) {
     fetchData()
   }, []);
 
-  console.log('showModal')
-  console.log(showModal)
-
   return (
     <React.Fragment>
       <div className={'container'} style={style.container}>

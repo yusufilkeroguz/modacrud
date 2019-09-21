@@ -7,8 +7,8 @@ import SweetAlert from 'sweetalert-react'
 import style from './../scss/index.scss'
 import 'sweetalert/dist/sweetalert.css'
 
-import edit from './../img/pencil.svg'
-import del from './../img/delete.svg'
+import edit from './../icons/pencil.svg'
+import del from './../icons/delete.svg'
 
 async function deleteOrder({ orderId }) {
   const url = `http://localhost:3004/orders/${orderId}`

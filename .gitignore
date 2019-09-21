@@ -1,0 +1,7 @@
+## WEBSTORM ##
+.idea
+
+## STATIC FILES ##
+static/*
+
+node_modules

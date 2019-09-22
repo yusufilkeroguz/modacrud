@@ -16,6 +16,6 @@ table {
   border-spacing: 0; }
 
 body {
-  font-size: 1rem;
-  font-family: "Roboto", -apple-system, Arial, sans-serif;
+  font-size: $default-font-size;
+  font-family: $default-font-family;
 }

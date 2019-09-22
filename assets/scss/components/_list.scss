@@ -16,9 +16,10 @@ $list_item_element: false !default;
     flex-wrap: wrap;
     padding: 1rem;
     margin-top: 2rem;
-    border: 1px solid #FF0000;
-    border-radius: .5rem;
+    border-radius: .25rem;
     position: relative;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
 
     &:first-child {
       margin-top: 0;
@@ -48,23 +49,36 @@ $list_item_element: false !default;
     &__actions {
       background: #FFFFFF;
       position: absolute;
-      bottom: -1.5rem;
-      right: .5rem;
+      top: 0;
+      right: 0;
       display: none;
       justify-content: center;
       align-items: center;
       flex-wrap: nowrap;
-      border: 1px solid #FF0000;
       padding: .5rem;
       border-radius: .5rem;
 
+      @include only-mobile() {
+        display: flex;
+        position: relative;
+        top: 1rem;
+      }
+
       &--edit {
-        margin-right: .5rem;
+        margin-right: $list-item-icon-separate-width;
+
+        @include only-mobile() {
+          margin-right: $list-item-icon-separate-width * 4;
+        }
       }
 
       svg {
-        width: 1.5rem;
+        width: $list-item-icon-width;
         height: auto;
+
+        @include only-mobile() {
+          width: $list-item-icon-width * 1.5;
+        }
       }
     }
   }

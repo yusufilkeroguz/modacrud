@@ -12,6 +12,6 @@ export const deleteSelectedOrder = id => ({
   id,
   type: 'DELETE_SELECTED_ORDER',
   payload: function ({ state }) {
-    return state = null
+    return state = {}
   }
 })

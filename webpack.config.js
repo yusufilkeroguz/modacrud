@@ -2,9 +2,9 @@ const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   entry: ['babel-polyfill', './assets/js/index.js'],
-  watch: true,
+  watch: false,
   module: {
     rules: [
       {

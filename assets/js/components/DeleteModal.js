@@ -32,7 +32,7 @@ class DeleteModal extends Component {
     const method = 'DELETE'
 
     this.props.deleteSelectedOrder()
-    this.props.deleteOrder()
+    this.props.deleteOrder(selectedOrder.id)
 
     return axios({
       method,

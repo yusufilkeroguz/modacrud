@@ -12,7 +12,13 @@ export const deleteOrder = id => ({
   id,
   type: 'DELETE_ORDER',
   payload: function ({ state }) {
-    return state.splice(id, 1)
+    state.map((order, key) => {
+      if (id === order.id) {
+        state.splice(key, 1);
+      }
+    })
+
+    return state
   }
 })
 
@@ -24,8 +30,6 @@ export const updateOrder = ({ id, name, price, address }) => ({
         state[key] = { id, name, price, address }
       }
     })
-
-    console.log(state)
 
     return state
   }

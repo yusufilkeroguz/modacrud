@@ -13,22 +13,10 @@
       "address": "Bahadır Mah. No: 1 Kadıköy/İstanbul"
     },
     {
-      "id": "5Q4dPxp",
-      "price": "a",
-      "name": "a",
-      "address": "asd"
-    },
-    {
-      "id": "3hHCNjo",
-      "price": "a",
-      "name": "a",
-      "address": "asd"
-    },
-    {
       "id": "wECs1G1",
-      "price": "asdasd",
-      "name": "asdsad",
-      "address": "asdasd"
+      "name": "Bahadır Özcan",
+      "price": 45,
+      "address": "Adil Mah No: 2 Sultaneyli/İstanbul"
     }
   ]
 }

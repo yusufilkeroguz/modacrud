@@ -12,29 +12,33 @@ import del from '../../icons/delete.svg'
 const ListItem = function (props) {
   const { order, changeSelectedOrder, showDeleteModal, showUpdateModal } = props
 
-  return (
-    <div className={'list__item'}>
-      <div className="list__item__name">{ order.name }</div>
-      <div className="list__item__price">{ order.price }</div>
-      <div className="list__item__address">{ order.address }</div>
+  if (order && order.name && order.price && order.address) {
+    return (
+      <div className={'list__item'}>
+        <div className="list__item__name">{ order.name }</div>
+        <div className="list__item__price">{ order.price }</div>
+        <div className="list__item__address">{ order.address }</div>
 
-      <div className="list__item__actions">
-        <a href={'#'} className="list__item__actions--edit" dangerouslySetInnerHTML={{ __html: edit }} onClick={
-          (event) => {
-            event.preventDefault()
-            changeSelectedOrder(order)
-            showUpdateModal()
-          }} />
+        <div className="list__item__actions">
+          <a href={'#'} className="list__item__actions--edit" dangerouslySetInnerHTML={{ __html: edit }} onClick={
+            (event) => {
+              event.preventDefault()
+              changeSelectedOrder(order)
+              showUpdateModal()
+            }} />
 
-        <a href={'#'} className="list__item__actions--delete" dangerouslySetInnerHTML={{ __html: del }} onClick={
-          (event) => {
-            event.preventDefault()
-            changeSelectedOrder(order)
-            showDeleteModal()
-          }} />
+          <a href={'#'} className="list__item__actions--delete" dangerouslySetInnerHTML={{ __html: del }} onClick={
+            (event) => {
+              event.preventDefault()
+              changeSelectedOrder(order)
+              showDeleteModal()
+            }} />
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
+
+  return <div />
 }
 
 const mapStateToProps = state => {

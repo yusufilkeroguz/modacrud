@@ -16,7 +16,7 @@ export const deleteOrder = id => ({
   }
 })
 
-export const changeOrder = ({ id, name, price, address }) => ({
+export const updateOrder = ({ id, name, price, address }) => ({
   type: 'CHANGE_ORDER',
   payload: function ({ state }) {
     state.map((order, key) => {
@@ -24,6 +24,8 @@ export const changeOrder = ({ id, name, price, address }) => ({
         state[key] = { id, name, price, address }
       }
     })
+
+    console.log(state)
 
     return state
   }

@@ -6,13 +6,12 @@ import { connect } from 'react-redux';
 import axios from 'axios'
 import SweetAlert from 'sweetalert-react'
 import { renderToStaticMarkup } from 'react-dom/server';
-import qs from 'qs'
 
 /**
  * Redux Actions
  */
 import { deleteSelectedOrder } from '../actions/selectedOrder'
-import { addOrder } from '../actions/orders'
+import { addOrder, updateOrder } from '../actions/orders'
 import { hideUpdateModal } from '../actions/updateModal'
 
 class UpdateModal extends Component {
@@ -34,15 +33,22 @@ class UpdateModal extends Component {
   updateOrderRequest(data) {
     const { id } = this.props.selectedOrder
     const url = `http://localhost:3004/orders/${id ? `${id}` : ''}`
-    const method = 'POST'
+    const method = id ? 'PUT' : 'POST'
     const headers = { 'Content-Type': 'application/json', Accept: 'application/json'}
+
+    if (id) {
+      this.props.updateOrder({ id, name: data.name, price: data.price, address: data.address })
+    }
+    else {
+      this.props.addOrder(data)
+    }
 
     return axios({
       method,
       url,
       headers,
       data,
-      responseType:'json'
+      responseType: 'json'
     })
   }
 
@@ -64,13 +70,11 @@ class UpdateModal extends Component {
   }
 
   formValidation() {
-    const id = document.querySelector('#id').value
     const price = document.querySelector('#price').value
     const name = document.querySelector('#name').value
     const address = document.querySelector('#address').value
 
     return {
-      id,
       price,
       name,
       address
@@ -83,7 +87,6 @@ class UpdateModal extends Component {
     }
 
     const data = this.formValidation()
-    this.props.addOrder(data)
     this.closeModal(true, data)
   }
 
@@ -138,6 +141,7 @@ const mapDispatchToProps = dispatch => ({
   hidden: () => dispatch(hideUpdateModal()),
   deleteSelectedOrder: (payload) => dispatch(deleteSelectedOrder(payload)),
   addOrder: (payload) => dispatch(addOrder(payload)),
+  updateOrder: (payload) => dispatch(updateOrder(payload)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(UpdateModal);
